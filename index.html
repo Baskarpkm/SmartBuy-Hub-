@@ -8,13 +8,7 @@
     <style>
         @import url('https://googleapis.com');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         :root {
             --bg-dark-base: #060713;
             --bg-card-surface: #0f1123;
@@ -27,14 +21,7 @@
             --glow-shadow-cyan: 0px 0px 15px rgba(0, 242, 254, 0.6);
             --glow-shadow-orange: 0px 0px 15px rgba(255, 106, 0, 0.6);
         }
-
-        body {
-            background-color: var(--bg-dark-base);
-            color: var(--text-white);
-            min-height: 100vh;
-            padding-bottom: 60px;
-            overflow-x: hidden;
-        }
+        body { background-color: var(--bg-dark-base); color: var(--text-white); min-height: 100vh; overflow-x: hidden; padding-bottom: 60px; }
                 .main-header {
             background: rgba(15, 17, 35, 0.85);
             backdrop-filter: blur(10px);
@@ -47,49 +34,61 @@
             z-index: 100;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .logo-text { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; color: var(--text-white); }
+        .logo-text .highlight { color: var(--neon-orange); text-shadow: var(--glow-shadow-orange); }
+        .header-controls { display: flex; align-items: center; gap: 20px; }
+        .cart-badge { position: relative; font-size: 1.2rem; cursor: pointer; }
+        .cart-badge .count { position: absolute; top: -8px; right: -10px; background: var(--neon-orange); font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; font-weight: 600; }
+        .menu-burger { font-size: 1.3rem; cursor: pointer; }
 
-        .logo-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: var(--text-white);
+        .hero-showcase {
+            background: linear-gradient(135deg, rgba(6,7,19,0.95) 30%, rgba(15,17,35,0.7) 100%), 
+                        url('https://unsplash.com') no-repeat center center;
+            background-size: cover; padding: 50px 25px; text-align: center; border-bottom: 2px solid rgba(0, 242, 254, 0.1);
         }
+        .hero-content h1 { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; background: linear-gradient(to right, #ff6a00, #ee0979, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-content p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
+        .hero-actions { display: flex; justify-content: center; gap: 15px; }
+        
+        .btn { padding: 12px 24px; border-radius: 25px; font-weight: 600; font-size: 0.9rem; cursor: pointer; border: none; transition: all 0.3s ease; }
+        .btn-neon-cyan { background: linear-gradient(45deg, #00c6ff, #00f2fe); color: #000; box-shadow: var(--glow-shadow-cyan); }
+        .btn-outline { background: transparent; color: var(--text-white); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .nav-category-matrix { padding: 25px 0 15px 20px; overflow-x: auto; }
+        .category-tabs-container { display: flex; gap: 20px; padding-bottom: 10px; }
+        .category-pill { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 75px; }
+        .circle-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-card-surface); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: center; align-items: center; font-size: 1.2rem; color: var(--text-muted); margin-bottom: 8px; transition: all 0.3s ease; }
+        .category-pill span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+        
+        .category-pill.active .circle-icon { background: linear-gradient(135deg, #181b3a, #0f1123); border-color: var(--neon-cyan); color: var(--neon-cyan); box-shadow: var(--glow-shadow-cyan); }
+        .category-pill.active span { color: var(--text-white); font-weight: 600; }
 
-        .logo-text .highlight {
-            color: var(--neon-orange);
-            text-shadow: var(--glow-shadow-orange);
-        }
+        .section-title-wrap { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px 10px 25px; }
+        .section-title-wrap h2 { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: rgba(255,255,255,0.95); }
+        .nav-arrows { display: flex; gap: 15px; color: var(--text-muted); font-size: 0.9rem; }
 
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .cart-badge {
-            position: relative;
-            font-size: 1.2rem;
-            color: var(--text-white);
-            cursor: pointer;
-        }
-
-        .cart-badge .count {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background: var(--neon-orange);
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 50%;
-            font-weight: 600;
-        }
-
-        .menu-burger {
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--text-white);
-        }
+        .products-grid-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 15px 25px; }
+        .deal-card-component { background: var(--bg-card-surface); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.04); padding: 16px; display: flex; flex-direction: column; position: relative; }
+        .deal-card-component .badge { position: absolute; top: 12px; left: 12px; background: rgba(0, 242, 254, 0.15); color: var(--neon-cyan); font-size: 0.65rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; border: 1px solid rgba(0, 242, 254, 0.2); }
+        .deal-card-component .badge.dynamic-orange { color: var(--neon-orange); background: rgba(255, 106, 0, 0.15); border-color: rgba(255, 106, 0, 0.2); }
+        .deal-card-component .badge.dynamic-pink { color: var(--neon-pink); background: rgba(250, 38, 160, 0.15); border-color: rgba(250, 38, 160, 0.2); }
+        .deal-card-component .badge.dynamic-purple { color: var(--neon-purple); background: rgba(155, 81, 224, 0.15); border-color: rgba(155, 81, 224, 0.2); }
+                .image-box { width: 100%; height: 160px; background: rgba(6, 7, 19, 0.6); border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-bottom: 14px; border: 1px solid rgba(255,255,255,0.02); }
+        .placeholder-icon { color: rgba(0, 242, 254, 0.25); font-size: 3rem; }
+        .placeholder-icon-orange { color: rgba(255, 106, 0, 0.25); font-size: 3rem; }
+        .placeholder-icon-pink { color: rgba(250, 38, 160, 0.25); font-size: 3rem; }
+        .placeholder-icon-purple { color: rgba(155, 81, 224, 0.25); font-size: 3rem; }
+        .card-details h3 { font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: #e2e8f0; margin-bottom: 8px; height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .rating-bar { color: #ffd700; font-size: 0.75rem; margin-bottom: 15px; display: flex; gap: 2px; }
+        .pricing-action-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .price-indicator { font-family: 'Orbitron', sans-serif; color: var(--neon-orange); font-weight: 700; font-size: 0.95rem; }
+        .buy-action-btn { background: linear-gradient(135deg, #101226, #1a1d3a); color: var(--text-white); text-decoration: none; font-size: 0.75rem; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); display: inline-flex; align-items: center; gap: 6px; }
+        .buy-action-btn i { color: #ff9900; font-size: 0.85rem; }
+        .mega-sale-banner { padding: 30px 25px 15px 25px; width: 100%; }
+        .mega-box { background: linear-gradient(90deg, rgba(255, 106, 0, 0.1) 0%, rgba(250, 38, 160, 0.1) 100%); border: 1px solid rgba(255, 106, 0, 0.2); border-radius: 14px; padding: 20px; text-align: center; }
+        .mega-box h3 { font-family: 'Orbitron', sans-serif; color: var(--neon-orange); font-size: 1.1rem; margin-bottom: 6px; }
+        .mega-box p { color: var(--text-muted); font-size: 0.8rem; }
+        .nav-category-matrix::-webkit-scrollbar { height: 4px; }
+        .nav-category-matrix::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -100,7 +99,7 @@
             <div class="menu-burger"><i class="fas fa-bars"></i></div>
         </div>
     </div>
-        <div class="hero-showcase">
+    <div class="hero-showcase">
         <div class="hero-content">
             <h1>UPGRADE YOUR LIFE</h1>
             <p>Trending Tech, Kitchen Utilities, Fashion & High-Tier Gear Matrix!</p>
@@ -134,7 +133,7 @@
         <div class="nav-arrows"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-right"></i></div>
     </div>
     <div class="products-grid-feed">
-                <!-- ================= ELECTRONICS SEGMENT A ================= -->
+        <!-- ================= ELECTRONICS ROW ================= -->
         <div class="deal-card-component" data-category="electronics">
             <div class="badge">Tech Deal</div>
             <div class="image-box"><i class="fas fa-laptop-code placeholder-icon"></i></div>
@@ -183,7 +182,7 @@
                 </div>
             </div>
         </div>
-        <div class="deal-card-component" data-category="electronics">
+                <div class="deal-card-component" data-category="electronics">
             <div class="badge">Tech Deal</div>
             <div class="image-box"><i class="fas fa-gamepad placeholder-icon"></i></div>
             <div class="card-details">
@@ -195,7 +194,6 @@
                 </div>
             </div>
         </div>
-                <!-- ================= ELECTRONICS SEGMENT B ================= -->
         <div class="deal-card-component" data-category="electronics">
             <div class="badge">Tech Deal</div>
             <div class="image-box"><i class="fas fa-mouse placeholder-icon"></i></div>
@@ -256,7 +254,7 @@
                 </div>
             </div>
         </div>
-                <!-- ================= KITCHEN PRO SEGMENT A ================= -->
+                <!-- ================= KITCHEN ROW SEGMENT A ================= -->
         <div class="deal-card-component" data-category="kitchen">
             <div class="badge dynamic-orange">Kitchen Pro</div>
             <div class="image-box"><i class="fas fa-blender placeholder-icon-orange"></i></div>
@@ -305,7 +303,7 @@
                 </div>
             </div>
         </div>
-        <div class="deal-card-component" data-category="kitchen">
+                <div class="deal-card-component" data-category="kitchen">
             <div class="badge dynamic-orange">Kitchen Pro</div>
             <div class="image-box"><i class="fas fa-fire placeholder-icon-orange"></i></div>
             <div class="card-details">
@@ -317,7 +315,6 @@
                 </div>
             </div>
         </div>
-                <!-- ================= KITCHEN PRO SEGMENT B ================= -->
         <div class="deal-card-component" data-category="kitchen">
             <div class="badge dynamic-orange">Kitchen Pro</div>
             <div class="image-box"><i class="fas fa-wind placeholder-icon-orange"></i></div>
@@ -354,8 +351,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- ================= FASHION VIBE SEGMENT A ================= -->
+                <!-- ================= FASHION VIBE SEGMENT A ================= -->
         <div class="deal-card-component" data-category="fashion">
             <div class="badge dynamic-pink">Fashion Vibe</div>
             <div class="image-box"><i class="fas fa-tshirt placeholder-icon-pink"></i></div>
@@ -404,8 +400,7 @@
                 </div>
             </div>
         </div>
-                <!-- ================= FASHION VIBE SEGMENT B ================= -->
-        <div class="deal-card-component" data-category="fashion">
+                <div class="deal-card-component" data-category="fashion">
             <div class="badge dynamic-pink">Fashion Vibe</div>
             <div class="image-box"><i class="fas fa-shopping-bag placeholder-icon-pink"></i></div>
             <div class="card-details">
@@ -453,8 +448,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- ================= OTHERS SEGMENT A ================= -->
+                <!-- ================= GENERAL BUNDLE SEGMENT A ================= -->
         <div class="deal-card-component" data-category="others">
             <div class="badge dynamic-purple">General Bundle</div>
             <div class="image-box"><i class="fas fa-dumbbell placeholder-icon-purple"></i></div>
@@ -503,7 +497,7 @@
                 </div>
             </div>
         </div>
-                <!-- ================= OTHERS SEGMENT B ================= -->
+                <!-- ================= GENERAL BUNDLE SEGMENT B ================= -->
         <div class="deal-card-component" data-category="others">
             <div class="badge dynamic-purple">General Bundle</div>
             <div class="image-box"><i class="fas fa-briefcase placeholder-icon-purple"></i></div>
@@ -552,7 +546,7 @@
                 </div>
             </div>
         </div>
-    </div> <!-- Close products-grid-feed container array elements -->
+    </div> <!-- Close principal products-grid-feed data block structural nodes -->
 
     <div class="mega-sale-banner">
         <div class="mega-box">
@@ -589,5 +583,4 @@
         }
     </script>
 </body>
-                                                                       </html>
-                                                                       
+</html>
