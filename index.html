@@ -4,198 +4,195 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartBuy Hub — Smart Choices • Better Living</title>
-    <style>
-        /* General Reset & Styles */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
-        header, footer { background: #f8f9fa; padding: 20px; text-align: center; }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
-        .nav-links a { margin: 0 10px; text-decoration: none; color: #007bff; }
-        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px; text-align: center; margin: 20px 0; }
-        .category-item { padding: 15px; background: #f1f3f5; border-radius: 8px; cursor: pointer; }
-        .hero { background: #e9ecef; padding: 50px 20px; text-align: center; border-radius: 8px; margin: 20px 0; }
-        .btn { display: inline-block; padding: 10px 20px; background: #28a745; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0; }
-        .product-card { border: 1px solid #dee2e6; padding: 20px; border-radius: 8px; text-align: center; position: relative; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .badge { position: absolute; top: 10px; left: 10px; background: #ffc107; color: #000; padding: 3px 8px; font-size: 12px; font-weight: bold; border-radius: 3px; }
-        .stars { color: #ffc107; margin: 5px 0; }
-        .price { font-size: 18px; font-weight: bold; margin: 10px 0; }
-        .old-price { text-decoration: line-through; color: #6c757d; font-size: 14px; margin-right: 5px; }
-        .discount { color: #dc3545; font-size: 14px; font-weight: bold; }
-        .amazon-btn { display: block; padding: 10px; background: #ff9900; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; font-weight: bold; }
-        .features-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; background: #f8f9fa; padding: 30px 20px; border-radius: 8px; margin: 40px 0; }
-        .feature-item strong { display: block; margin-bottom: 5px; }
-        .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0; }
-        .guide-card { background: #fdfdfd; border: 1px solid #e9ecef; padding: 20px; border-radius: 8px; }
-    </style>
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <h1>🛒 <strong>SmartBuy <em>Hub</em></strong></h1>
-        <p>Smart Choices • Better Living</p>
-        <nav class="nav-links">
-            <a href="#">Home</a> | <a href="#">Categories</a> | <a href="#">Top Deals</a> | <a href="#">Blog</a> | <a href="#">About</a>
+    <header>
+        <p>SmartBuy Hub — Smart Choices • Better Living</p>
+        <p>🔥 Best Deals | Latest Products | Trusted Reviews</p>
+        <p>Follow Us: ◉ ◉ ◉ ◉ ♥ Save • Compare • Buy Smart</p>
+        <h1>🛒 <strong>SmartBuy <em>Hub</em></strong> Smart Choices • Better Living</h1>
+        <div class="search-bar">⌕</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Categories</a>
+            <a href="#">Top Deals</a>
+            <a href="#">Blog</a>
+            <a href="#">About</a>
+            <button class="menu-btn">☰</button>
         </nav>
-    </div>
-</header>
+    </header>
 
-<div class="container">
-    <!-- Hero Section -->
-    <section class="hero">
-        <h2># Smart Picks for a Better Tomorrow</h2>
-        <p>Discover the best products, honest reviews and amazing deals — all in one place. We help you shop smarter with Amazon.</p>
-        <a href="#" class="btn">Explore Top Deals →</a>
-    </section>
+    <main>
+        <section class="hero">
+            <p>🔥 Top Picks • Best Deals • Amazon Affiliate</p>
+            <h2># Smart Picks for a Better Tomorrow</h2>
+            <p>Discover the best products, honest reviews and amazing deals — all in one place. We help you shop smarter with Amazon.</p>
+            <button class="cta-btn">Explore Top Deals →</button>
+        </section>
 
-    <!-- Categories -->
-    <section class="categories-grid">
-        <div class="category-item">💻<br>Electronics</div>
-        <div class="category-item">📱<br>Mobiles & Tablets</div>
-        <div class="category-item">🏠<br>Home & Kitchen</div>
-        <div class="category-item">👕<br>Fashion</div>
-        <div class="category-item">🧴<br>Beauty & Care</div>
-        <div class="category-item">🏃<br>Sports</div>
-        <div class="category-item">🎮<br>Toys & Games</div>
-        <div class="category-item">📚<br>Books</div>
-        <div class="category-item">🚗<br>Automotive</div>
-    </section>
+        <section class="categories-icons">
+            <span>💻</span> <span>🎧</span> <span>⌚</span> <span>📱</span>
+        </section>
 
-    <!-- Trending Section Start -->
-    <section>
-        <h2>🔥 Trending Now</h2>
-        <p>Handpicked products loved by shoppers <a href="#" style="float: right; text-decoration: none; color: #007bff;">View All →</a></p>
-        
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <span class="badge">Best Seller</span>
-                <div style="font-size: 50px; margin: 10px 0;">🎧</div>
-                <h3>Wireless Earbuds</h3>
-                <div class="stars">★★★★★ <span style="color:#6c757d; font-size:12px;">(152,347)</span></div>
-                <div class="price"><span class="old-price">₹2,499</span>₹1,199 <span class="discount">52% off</span></div>
-                <a href="#" class="amazon-btn">🅰 View on Amazon →</a>
+        <section class="categories-list">
+            <ul>
+                <li>💻 Electronics</li>
+                <li>📱 Mobiles & Tablets</li>
+                <li>🏠 Home & Kitchen</li>
+                <li>👕 Fashion</li>
+                <li>🧴 Beauty & Care</li>
+                <li>🏃 Sports</li>
+                <li>🎮 Toys & Games</li>
+                <li>📚 Books</li>
+                <li>🚗 Automotive</li>
+                <li>▦ More</li>
+            </ul>
+        </section>
+
+        <section class="trending">
+            <h2>🔥 Trending Now</h2>
+            <p>Handpicked products loved by shoppers</p>
+            <a href="#">View All →</a>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <span class="badge">Best Seller</span>
+                    <span class="emoji">🎧</span>
+                    <h3>Wireless Earbuds</h3>
+                    <div class="rating">★★★★★ (152,347)</div>
+                    <div class="price">₹1,199 <del>₹2,499</del> <span class="discount">52% off</span></div>
+                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <span class="badge">Trending</span>
+                    <span class="emoji">⌚</span>
+                    <h3>Smartwatch</h3>
+                    <div class="rating">★★★★★ (98,421)</div>
+                    <div class="price">₹1,699 <del>₹4,999</del> <span class="discount">66% off</span></div>
+                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <span class="badge">Best Seller</span>
+                    <span class="emoji">💻</span>
+                    <h3>Everyday Performance Laptop</h3>
+                    <div class="rating">★★★★★ (76,532)</div>
+                    <div class="price">₹32,990 <del>₹57,990</del> <span class="discount">43% off</span></div>
+                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <span class="badge">Top Rated</span>
+                    <span class="emoji">🎒</span>
+                    <h3>Everyday Travel Backpack</h3>
+                    <div class="rating">★★★★★ (48,320)</div>
+                    <div class="price">₹1,299 <del>₹2,499</del> <span class="discount">48% off</span></div>
+                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <span class="badge">Deal</span>
+                    <span class="emoji">🍟</span>
+                    <h3>Air Fryer</h3>
+                    <div class="rating">★★★★★ (28,976)</div>
+                    <div class="price">₹7,499 <del>₹12,995</del> <span class="discount">42% off</span></div>
+                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <span class="badge">Popular</span>
+                    <span class="emoji">🎧</span>
+                    <h3>True Wireless Earbuds</h3>
+                    <div class="rating">★★★★★ (21,643)</div>
+                    <div class="price">₹2,499 <del>₹5,999</del> <span class="discount">58% off</span></div>
+                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card">
+                    <span class="badge">Top Drop</span>
+                    <span class="emoji">🎙</span>
+                    <h3>CLATE XLR 3 Pin Male to 6.35mm Female Mic Pin Adapter</h3>
+                    <div class="rating">★★★★☆ (9)</div>
+                    <div class="price">₹298 <del>₹899</del> <span class="discount">67% off</span></div>
+                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card">
+                    <span class="badge">Home Care</span>
+                    <span class="emoji">🪳</span>
+                    <h3>Cockroach Traps</h3>
+                    <div class="rating">★★★★★</div>
+                    <span class="badge-sub">Popular</span>
+                    <a href="#" class="view-deal">View Deal</a>
+                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
+                </div>
+
+                <!-- NEW ADDED PRODUCT: Product 9 -->
+                <div class="product-card">
+                    <span class="badge">Popular</span>
+                    <span class="emoji">☕</span>
+                    <h3>Davidoff Espresso 57 Whole Beans Coffee</h3>
+                    <div class="rating">★★★★★ (408)</div>
+                    <div class="price">₹1,999 <del>₹2,499</del> <span class="discount">20% off</span></div>
+                    <a href="https://link.amazon" class="amazon-link" target="_blank">🅰 View on Amazon →</a>
+                </div>
             </div>
+        </section>
 
-            <!-- Product 2 -->
-            <div class="product-card">
-                <span class="badge">Trending</span>
-                <div style="font-size: 50px; margin: 10px 0;">⌚</div>
-                <h3>Smartwatch</h3>
-                <div class="stars">★★★★★ <span style="color:#6c757d; font-size:12px;">(98,421)</span></div>
-                <div class="price"><span class="old-price">₹4,999</span>₹1,699 <span class="discount">66% off</span></div>
-                <a href="#" class="amazon-btn">🅰 View on Amazon →</a>
-            </div>
+        <section class="features">
+            <p><strong>🚚 100% Genuine Products</strong>Direct from Amazon</p>
+            <p><strong>🛡 Trusted Reviews</strong>Real user experiences</p>
+            <p><strong>🏷 Best Deals</strong>Save more, shop smarter</p>
+            <p><strong>⚡ Quick & Easy Access</strong>Direct Amazon links</p>
+            <p><strong>🔎 Smart Comparisons</strong>Choose with confidence</p>
+            <p><strong>amazon We're an Amazon Associate</strong> We earn a commission from qualifying purchases. This helps us create more helpful content for you. <a href="#">Learn More →</a></p>
+        </section>
 
-            <!-- Product 3 -->
-            <div class="product-card">
-                <span class="badge">Best Seller</span>
-                <div style="font-size: 50px; margin: 10px 0;">💻</div>
-                <h3>Everyday Performance Laptop</h3>
-                <div class="stars">★★★★★ <span style="color:#6c757d; font-size:12px;">(76,532)</span></div>
-                <div class="price"><span class="old-price">₹57,990</span>₹32,990 <span class="discount">43% off</span></div>
-                <a href="#" class="amazon-btn">🅰 View on Amazon →</a>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <span class="badge">Top Rated</span>
-                <div style="font-size: 50px; margin: 10px 0;">🎒</div>
-                <h3>Everyday Travel Backpack</h3>
-                <div class="stars">★★★★★ <span style="color:#6c757d; font-size:12px;">(48,320)</span></div>
-                <div class="price"><span class="old-price">₹2,499</span>₹1,299 <span class="discount">48% off</span></div>
-                <a href="#" class="amazon-btn">🅰 View on Amazon →</a>
-            </div>
-                        <!-- Product 5 -->
-            <div class="product-card">
-                <span class="badge">Deal</span>
-                <div style="font-size: 50px; margin: 10px 0;">🍟</div>
-                <h3>Air Fryer</h3>
-                <div class="stars">★★★★★ <span style="color:#6c757d; font-size:12px;">(28,976)</span></div>
-                <div class="price"><span class="old-price">₹12,995</span>₹7,499 <span class="discount">42% off</span></div>
-                <a href="#" class="amazon-btn">🅰 View on Amazon →</a>
-            </div>
-
-            <!-- Product 6 -->
-            <div class="product-card">
-                <span class="badge">Popular</span>
-                <div style="font-size: 50px; margin: 10px 0;">🎧</div>
-                <h3>True Wireless Earbuds</h3>
-                <div class="stars">★★★★★ <span style="color:#6c757d; font-size:12px;">(21,643)</span></div>
-                <div class="price"><span class="old-price">₹5,999</span>₹2,499 <span class="discount">58% off</span></div>
-                <a href="#" class="amazon-btn">🅰 View on Amazon →</a>
-            </div>
-
-            <!-- Product 7 -->
-            <div class="product-card">
-                <span class="badge">Top Drop</span>
-                <div style="font-size: 50px; margin: 10px 0;">🎙</div>
-                <h3>CLATE XLR 3 Pin Male to 6.35mm Female Mic Pin Adapter</h3>
-                <div class="stars">★★★★☆ <span style="color:#6c757d; font-size:12px;">(9)</span></div>
-                <div class="price"><span class="old-price">₹899</span>₹298 <span class="discount">67% off</span></div>
-                <a href="#" class="amazon-btn">🅰 View on Amazon →</a>
-            </div>
-
-            <!-- Product 8 -->
-            <div class="product-card">
-                <span class="badge">Home Care</span>
-                <div style="font-size: 50px; margin: 10px 0;">🪳</div>
-                <h3>Cockroach Traps</h3>
-                <div class="stars">★★★★★ <span style="color:#6c757d; font-size:12px;">Popular</span></div>
-                <div class="price"><a href="#" style="color:#007bff; text-decoration:none;">View Deal</a></div>
-                <a href="#" class="amazon-btn">🅰 View on Amazon →</a>
-            </div>
-
-            <!-- NEW PRODUCT ADDED: Product 9 with Affiliate Link -->
-            <div class="product-card">
-                <span class="badge">New Launch</span>
-                <div style="font-size: 50px; margin: 10px 0;">🔊</div>
-                <h3>Premium Bluetooth Soundbar</h3>
-                <div class="stars">★★★★★ <span style="color:#6c757d; font-size:12px;">(1,245)</span></div>
-                <div class="price"><span class="old-price">₹9,999</span>₹4,499 <span class="discount">55% off</span></div>
-                <a href="https://link.amazon/B0cEPX7KA" target="_blank" rel="noopener noreferrer" class="amazon-btn">🅰 View on Amazon →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features-list">
-        <div class="feature-item"><strong>🚚 100% Genuine Products</strong> Direct from Amazon</div>
-        <div class="feature-item"><strong>🛡 Trusted Reviews</strong> Real user experiences</div>
-        <div class="feature-item"><strong>🏷 Best Deals</strong> Save more, shop smarter</div>
-        <div class="feature-item"><strong>⚡ Quick & Easy Access</strong> Direct Amazon links</div>
-        <div class="feature-item"><strong>🔎 Smart Comparisons</strong> Choose with confidence</div>
-    </section>
-
-    <!-- Affiliate Disclaimer -->
-    <p style="text-align: center; color: #6c757d; font-size: 14px;"><strong>amazon We're an Amazon Associate</strong><br>We earn a commission from qualifying purchases. This helps us create more helpful content for you. <a href="#">Learn More →</a></p>
-
-    <!-- Buying Guides -->
-    <section>
-        <h2>Smart Buying Guides</h2>
-        <p>Simple tips before you spend.</p>
-        <div class="guides-grid">
-            <div class="guide-card">
-                <h3>🔎 How to choose the right earbuds</h3>
+        <section class="guides">
+            <h2>Smart Buying Guides</h2>
+            <p>Simple tips before you spend.</p>
+            
+            <div class="guide-item">
+                <span>🔎</span>
+                <h3>How to choose the right earbuds</h3>
                 <p>Battery, comfort, sound and microphone — what really matters.</p>
             </div>
-            <div class="guide-card">
-                <h3>💡 Best gadgets for daily life</h3>
+            <div class="guide-item">
+                <span>💡</span>
+                <h3>Best gadgets for daily life</h3>
                 <p>Practical technology that solves everyday problems.</p>
             </div>
-            <div class="guide-card">
-                <h3>💰 Smart shopping checklist</h3>
+            <div class="guide-item">
+                <span>💰</span>
+                <h3>Smart shopping checklist</h3>
                 <p>Compare ratings, reviews, warranty and seller details.</p>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </main>
 
-<footer>
-    <p><strong>🛒 SmartBuy Hub</strong> — Smart Choices • Better Living</p>
-    <p>Quick Links: <a href="#">Home</a> | <a href="#">Categories</a> | <a href="#">Top Deals</a> | <a href="#">Blog</a></p>
-    <p>© 2026 SmartBuy Hub. All rights reserved. Privacy Policy | Terms & Conditions | Amazon Affiliate Disclosure</p>
-</footer>
+    <footer>
+        <h3>🛒 SmartBuy Hub</h3>
+        <p>Smart Choices • Better Living</p>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="#">Home</a> <a href="#">Categories</a> <a href="#">Top Deals</a> <a href="#">Blog</a>
+        </div>
+        <div>
+            <h4>Follow Us</h4>
+            <span>▶</span> <span>◎</span> <span>f</span> <span>✈</span>
+        </div>
+        <p>© 2026 SmartBuy Hub. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a> | <a href="#">Amazon Affiliate Disclosure</a></p>
+    </footer>
 
 </body>
 </html>
