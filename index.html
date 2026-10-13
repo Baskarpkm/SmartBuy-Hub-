@@ -3,368 +3,591 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartBuy Hub — Smart Choices • Better Living</title>
+    <title>SmartBuyHub | Premium Deals Matrix</title>
+    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
-        /* Base Grid & Theme Styles Reset */
+        @import url('https://googleapis.com');
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
+
+        :root {
+            --bg-dark-base: #060713;
+            --bg-card-surface: #0f1123;
+            --neon-orange: #ff6a00;
+            --neon-cyan: #00f2fe;
+            --neon-pink: #fa26a0;
+            --neon-purple: #9b51e0;
+            --text-white: #ffffff;
+            --text-muted: #7e84a3;
+            --glow-shadow-cyan: 0px 0px 15px rgba(0, 242, 254, 0.6);
+            --glow-shadow-orange: 0px 0px 15px rgba(255, 106, 0, 0.6);
+        }
+
         body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
+            background-color: var(--bg-dark-base);
+            color: var(--text-white);
+            min-height: 100vh;
+            padding-bottom: 60px;
+            overflow-x: hidden;
         }
-        header {
-            background: #fff;
-            padding: 15px 5%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        header p {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        h1 {
-            font-size: 1.8rem;
-            margin: 10px 0;
-            color: #111;
-        }
-        nav {
-            margin-top: 10px;
+                .main-header {
+            background: rgba(15, 17, 35, 0.85);
+            backdrop-filter: blur(10px);
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            align-items: center;
-        }
-        nav a {
-            text-decoration: none;
-            color: #444;
-            font-weight: 500;
-        }
-        .menu-btn {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        .hero {
-            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-            padding: 40px 5%;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .hero h2 {
-            font-size: 2rem;
-            margin: 10px 0;
-            color: #e65100;
-        }
-        .cta-btn {
-            background: #ff9900;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        .categories-list ul {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            list-style: none;
-            gap: 15px;
-            padding: 10px 5%;
-        }
-        .categories-list li {
-            background: #fff;
-            padding: 8px 15px;
-            border-radius: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-        .trending {
-            padding: 30px 5%;
-        }
-        .trending h2 {
-            margin-bottom: 5px;
-        }
-        .trending p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .product-card {
-            background: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            position: relative;
-            display: flex;
-            flex-direction: column;
             justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .badge {
-            background: #ff3b30;
-            color: #fff;
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 3px;
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            font-weight: bold;
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-white);
         }
-        .emoji {
-            font-size: 3rem;
-            text-align: center;
-            margin: 20px 0 10px 0;
+
+        .logo-text .highlight {
+            color: var(--neon-orange);
+            text-shadow: var(--glow-shadow-orange);
         }
-        .product-card h3 {
-            font-size: 1rem;
-            margin-bottom: 10px;
-            height: 45px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-        .rating {
-            color: #ff9900;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        .price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        .price del {
-            color: #888;
-            font-size: 0.9rem;
-            font-weight: normal;
-        }
-        .discount {
-            color: #34c759;
-            font-size: 0.9rem;
-        }
-        .amazon-link {
-            display: block;
-            background: #ff9900;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        .features {
-            background: #fff;
-            padding: 30px 5%;
-            margin: 30px 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+        .header-controls {
+            display: flex;
+            align-items: center;
             gap: 20px;
         }
-        .guides {
-            padding: 30px 5%;
-            background: #f1f3f5;
+
+        .cart-badge {
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--text-white);
+            cursor: pointer;
         }
-        .guide-item {
-            background: #fff;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 15px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
+        .cart-badge .count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--neon-orange);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: 600;
         }
-        footer {
-            background: #222;
-            color: #fff;
-            padding: 40px 5%;
-            text-align: center;
-            margin-top: 40px;
-        }
-        footer a {
-            color: #ff9900;
-            text-decoration: none;
-        }
-        footer div {
-            margin: 20px 0;
+
+        .menu-burger {
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--text-white);
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <p>SmartBuy Hub — Smart Choices • Better Living</p>
-        <p>🔥 Best Deals | Latest Products | Trusted Reviews</p>
-        <p>Follow Us: ◉ ◉ ◉ ◉ ♥ Save • Compare • Buy Smart</p>
-        <h1>🛒 <strong>SmartBuy <em>Hub</em></strong> Smart Choices • Better Living</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Categories</a>
-            <a href="#">Top Deals</a>
-            <a href="#">Blog</a>
-            <a href="#">About</a>
-            <button class="menu-btn">☰</button>
-        </nav>
-    </header>
-        <main>
-        <section class="hero">
-            <p>🔥 Top Picks • Best Deals • Amazon Affiliate</p>
-            <h2># Smart Picks for a Better Tomorrow</h2>
-            <p>Discover the best products, honest reviews and amazing deals — all in one place. We help you shop smarter with Amazon.</p>
-            <button class="cta-btn">Explore Top Deals →</button>
-        </section>
-
-        <section class="categories-list">
-            <ul>
-                <li>💻 Electronics</li>
-                <li>📱 Mobiles & Tablets</li>
-                <li>🏠 Home & Kitchen</li>
-                <li>👕 Fashion</li>
-                <li>🧴 Beauty & Care</li>
-                <li>🏃 Sports</li>
-                <li>🎮 Toys & Games</li>
-                <li>📚 Books</li>
-                <li>🚗 Automotive</li>
-                <li>▦ More</li>
-            </ul>
-        </section>
-
-        <section class="trending">
-            <h2>🔥 Trending Now</h2>
-            <p>Handpicked products loved by shoppers</p>
-
-            <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card">
-                    <span class="badge">Best Seller</span>
-                    <span class="emoji">🎧</span>
-                    <h3>Wireless Earbuds</h3>
-                    <div class="rating">★★★★★ (152,347)</div>
-                    <div class="price">₹1,199 <del>₹2,499</del> <span class="discount">52% off</span></div>
-                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="product-card">
-                    <span class="badge">Trending</span>
-                    <span class="emoji">⌚</span>
-                    <h3>Smartwatch</h3>
-                    <div class="rating">★★★★★ (98,421)</div>
-                    <div class="price">₹1,699 <del>₹4,999</del> <span class="discount">66% off</span></div>
-                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card">
-                    <span class="badge">Best Seller</span>
-                    <span class="emoji">💻</span>
-                    <h3>Everyday Performance Laptop</h3>
-                    <div class="rating">★★★★★ (76,532)</div>
-                    <div class="price">₹32,990 <del>₹57,990</del> <span class="discount">43% off</span></div>
-                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-card">
-                    <span class="badge">Top Rated</span>
-                    <span class="emoji">🎒</span>
-                    <h3>Everyday Travel Backpack</h3>
-                    <div class="rating">★★★★★ (48,320)</div>
-                    <div class="price">₹1,299 <del>₹2,499</del> <span class="discount">48% off</span></div>
-                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="product-card">
-                    <span class="badge">Deal</span>
-                    <span class="emoji">🍟</span>
-                    <h3>Air Fryer</h3>
-                    <div class="rating">★★★★★ (28,976)</div>
-                    <div class="price">₹7,499 <del>₹12,995</del> <span class="discount">42% off</span></div>
-                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="product-card">
-                    <span class="badge">Popular</span>
-                    <span class="emoji">🎧</span>
-                    <h3>True Wireless Earbuds</h3>
-                    <div class="rating">★★★★★ (21,643)</div>
-                    <div class="price">₹2,499 <del>₹5,999</del> <span class="discount">58% off</span></div>
-                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
-                </div>
-
-                <!-- Product 7 -->
-                <div class="product-card">
-                    <span class="badge">Top Drop</span>
-                    <span class="emoji">🎙</span>
-                    <h3>CLATE XLR 3 Pin Male to 6.35mm Female Mic Pin Adapter</h3>
-                    <div class="rating">★★★★☆ (9)</div>
-                    <div class="price">₹298 <del>₹899</del> <span class="discount">67% off</span></div>
-                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
-                </div>
-
-                <!-- Product 8 -->
-                <div class="product-card">
-                    <span class="badge">Home Care</span>
-                    <span class="emoji">🪳</span>
-                    <h3>Cockroach Traps</h3>
-                    <div class="rating">★★★★★</div>
-                    <div class="price">₹149 <del>₹299</del> <span class="discount">50% off</span></div>
-                    <a href="#" class="amazon-link">🅰 View on Amazon →</a>
-                </div>
-
-                <!-- NEW ADDED ASSOCIATE PRODUCT: Product 9 -->
-                <div class="product-card">
-                    <span class="badge" style="background:#28a745;">Featured Deal</span>
-                    <span class="emoji">☕</span>
-                    <h3>Premium Whole Beans Coffee - Dark Roast Blend</h3>
-                    <div class="rating">★★★★★ (408)</div>
-                    <div class="price">₹1,999 <del>₹2,499</del> <span class="discount">20% off</span></div>
-                    <a href="https://link.amazon/B0iOVghIl" class="amazon-link" target="_blank">🅰 View on Amazon →</a>
+    <div class="main-header">
+        <div class="logo-zone"><span class="logo-text">Smart<span class="highlight">Buy</span>Hub</span></div>
+        <div class="header-controls">
+            <div class="cart-badge"><i class="fas fa-shopping-cart"></i><span class="count">0</span></div>
+            <div class="menu-burger"><i class="fas fa-bars"></i></div>
+        </div>
+    </div>
+        <div class="hero-showcase">
+        <div class="hero-content">
+            <h1>UPGRADE YOUR LIFE</h1>
+            <p>Trending Tech, Kitchen Utilities, Fashion & High-Tier Gear Matrix!</p>
+            <div class="hero-actions">
+                <button class="btn btn-neon-cyan" onclick="scrollToDeals()">Shop Now</button>
+                <button class="btn btn-outline" onclick="scrollToDeals()">Explore Deals</button>
+            </div>
+        </div>
+    </div>
+    <div class="nav-category-matrix">
+        <div class="category-tabs-container">
+            <div class="category-pill active" onclick="switchCategory('all')">
+                <div class="circle-icon"><i class="fas fa-th-large"></i></div><span>All Feed</span>
+            </div>
+            <div class="category-pill" onclick="switchCategory('electronics')">
+                <div class="circle-icon"><i class="fas fa-laptop"></i></div><span>Electronics</span>
+            </div>
+            <div class="category-pill" onclick="switchCategory('kitchen')">
+                <div class="circle-icon"><i class="fas fa-blender"></i></div><span>Kitchen</span>
+            </div>
+            <div class="category-pill" onclick="switchCategory('fashion')">
+                <div class="circle-icon"><i class="fas fa-tshirt"></i></div><span>Fashion</span>
+            </div>
+            <div class="category-pill" onclick="switchCategory('others')">
+                <div class="circle-icon"><i class="fas fa-box-open"></i></div><span>Others</span>
+            </div>
+        </div>
+    </div>
+    <div class="section-title-wrap" id="deals-anchor">
+        <h2>TRENDING TODAY</h2>
+        <div class="nav-arrows"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-right"></i></div>
+    </div>
+    <div class="products-grid-feed">
+                <!-- ================= ELECTRONICS SEGMENT A ================= -->
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-laptop-code placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>Premium Audio & Tech Unit - Model E1</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
                 </div>
             </div>
-        </section>
-
-        <section class="features">
-            <p><strong>🚚 100% Genuine Products</strong> <br>Direct from Amazon</p>
-            <p><strong>🛡 Trusted Reviews</strong> <br>Real user experiences</p>
-            <p><strong>🏷 Best Deals</strong> <br>Save more, shop smarter</p>
-            <p><strong>⚡ Quick Access</strong> <br>Direct Amazon links</p>
-        </section>
-
-        <section class="guides">
-            <h2>Smart Buying Guides</h2>
-            <div class="guide-item">
-                <h3>🔎 How to choose the right earbuds</h3>
-                <p>Battery, comfort, sound and microphone — what really matters.</p>
+        </div>
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-mobile-alt placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>High-Response Smart Interface E2</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
             </div>
-            <div class="guide-item">
-                <h3>💡 Best gadgets for daily life</h3>
-                <p>Practical technology that solves everyday problems.</p>
+        </div>
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-headphones placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>Ultra Bass Precision Audio System E3</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-charging-station placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>Smart Electronic Accessory Core E4</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-gamepad placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>High Definition Display Peripherals E5</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+                <!-- ================= ELECTRONICS SEGMENT B ================= -->
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-mouse placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>Ergonomic Elite Connectivity Gear E6</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-microchip placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>Smart Integrated Processing Unit E7</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-server placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>Wireless Smart Hub Network E8</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-tv placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>High Fidelity Audio/Video Core E9</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="electronics">
+            <div class="badge">Tech Deal</div>
+            <div class="image-box"><i class="fas fa-camera placeholder-icon"></i></div>
+            <div class="card-details">
+                <h3>Optics & Digital Streaming Hub E10</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+                <!-- ================= KITCHEN PRO SEGMENT A ================= -->
+        <div class="deal-card-component" data-category="kitchen">
+            <div class="badge dynamic-orange">Kitchen Pro</div>
+            <div class="image-box"><i class="fas fa-blender placeholder-icon-orange"></i></div>
+            <div class="card-details">
+                <h3>High-Speed Kitchen Processing Array K1</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="kitchen">
+            <div class="badge dynamic-orange">Kitchen Pro</div>
+            <div class="image-box"><i class="fas fa-coffee placeholder-icon-orange"></i></div>
+            <div class="card-details">
+                <h3>Automated Custom Brew Infuser K2</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="kitchen">
+            <div class="badge dynamic-orange">Kitchen Pro</div>
+            <div class="image-box"><i class="fas fa-utensils placeholder-icon-orange"></i></div>
+            <div class="card-details">
+                <h3>Premium Grade Thermal Cooking Set K3</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="kitchen">
+            <div class="badge dynamic-orange">Kitchen Pro</div>
+            <div class="image-box"><i class="fas fa-sink placeholder-icon-orange"></i></div>
+            <div class="card-details">
+                <h3>Smart Kitchen Organizer Matrix K4</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="kitchen">
+            <div class="badge dynamic-orange">Kitchen Pro</div>
+            <div class="image-box"><i class="fas fa-fire placeholder-icon-orange"></i></div>
+            <div class="card-details">
+                <h3>Intelligent Precision Induction Top K5</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+                <!-- ================= KITCHEN PRO SEGMENT B ================= -->
+        <div class="deal-card-component" data-category="kitchen">
+            <div class="badge dynamic-orange">Kitchen Pro</div>
+            <div class="image-box"><i class="fas fa-wind placeholder-icon-orange"></i></div>
+            <div class="card-details">
+                <h3>Multi-Flow Digital Air Fryer Unit K6</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="kitchen">
+            <div class="badge dynamic-orange">Kitchen Pro</div>
+            <div class="image-box"><i class="fas fa-box placeholder-icon-orange"></i></div>
+            <div class="card-details">
+                <h3>Modular Vacuum Storage Network K7</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="kitchen">
+            <div class="badge dynamic-orange">Kitchen Pro</div>
+            <div class="image-box"><i class="fas fa-water placeholder-icon-orange"></i></div>
+            <div class="card-details">
+                <h3>Advanced Purification Counter System K8</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
 
-    <footer>
-        <h3>🛒 SmartBuy Hub</h3>
-        <p>Smart Choices • Better Living</p>
-        <p style="margin-top:15px; font-size:0.8rem; color:#aaa;">© 2026 SmartBuy Hub. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Amazon Affiliate Disclosure</a></p>
-    </footer>
+        <!-- ================= FASHION VIBE SEGMENT A ================= -->
+        <div class="deal-card-component" data-category="fashion">
+            <div class="badge dynamic-pink">Fashion Vibe</div>
+            <div class="image-box"><i class="fas fa-tshirt placeholder-icon-pink"></i></div>
+            <div class="card-details">
+                <h3>Premium Tailored Urban Apparel F1</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="fashion">
+            <div class="badge dynamic-pink">Fashion Vibe</div>
+            <div class="image-box"><i class="fas fa-shoe-prints placeholder-icon-pink"></i></div>
+            <div class="card-details">
+                <h3>Ergonomic Cyber Sport Footwear F2</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="fashion">
+            <div class="badge dynamic-pink">Fashion Vibe</div>
+            <div class="image-box"><i class="fas fa-glasses placeholder-icon-pink"></i></div>
+            <div class="card-details">
+                <h3>Polarized UV Precision Sunglasses F3</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="fashion">
+            <div class="badge dynamic-pink">Fashion Vibe</div>
+            <div class="image-box"><i class="fas fa-clock placeholder-icon-pink"></i></div>
+            <div class="card-details">
+                <h3>Chronograph Precision Quartz Watch F4</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+                <!-- ================= FASHION VIBE SEGMENT B ================= -->
+        <div class="deal-card-component" data-category="fashion">
+            <div class="badge dynamic-pink">Fashion Vibe</div>
+            <div class="image-box"><i class="fas fa-shopping-bag placeholder-icon-pink"></i></div>
+            <div class="card-details">
+                <h3>All-Weather Endurance Travel Pack F5</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="fashion">
+            <div class="badge dynamic-pink">Fashion Vibe</div>
+            <div class="image-box"><i class="fas fa-gem placeholder-icon-pink"></i></div>
+            <div class="card-details">
+                <h3>Minimalist Silver Core Luxury Chain F6</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="fashion">
+            <div class="badge dynamic-pink">Fashion Vibe</div>
+            <div class="image-box"><i class="fas fa-hat-cowboy placeholder-icon-pink"></i></div>
+            <div class="card-details">
+                <h3>Classic Element Adjustable Street Cap F7</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="fashion">
+            <div class="badge dynamic-pink">Fashion Vibe</div>
+            <div class="image-box"><i class="fas fa-wallet placeholder-icon-pink"></i></div>
+            <div class="card-details">
+                <h3>RFID Protected Premium Leather Wallet F8</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
 
+        <!-- ================= OTHERS SEGMENT A ================= -->
+        <div class="deal-card-component" data-category="others">
+            <div class="badge dynamic-purple">General Bundle</div>
+            <div class="image-box"><i class="fas fa-dumbbell placeholder-icon-purple"></i></div>
+            <div class="card-details">
+                <h3>Heavy Endurance Home Gym Core O1</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="others">
+            <div class="badge dynamic-purple">General Bundle</div>
+            <div class="image-box"><i class="fas fa-book placeholder-icon-purple"></i></div>
+            <div class="card-details">
+                <h3>Self Improvement & Strategy Book Set O2</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="others">
+            <div class="badge dynamic-purple">General Bundle</div>
+            <div class="image-box"><i class="fas fa-couch placeholder-icon-purple"></i></div>
+            <div class="card-details">
+                <h3>Comfort Memory Foam Lumbar Support O3</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="others">
+            <div class="badge dynamic-purple">General Bundle</div>
+            <div class="image-box"><i class="fas fa-spa placeholder-icon-purple"></i></div>
+            <div class="card-details">
+                <h3>Organic Essential Oil Diffuser Pack O4</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+                <!-- ================= OTHERS SEGMENT B ================= -->
+        <div class="deal-card-component" data-category="others">
+            <div class="badge dynamic-purple">General Bundle</div>
+            <div class="image-box"><i class="fas fa-briefcase placeholder-icon-purple"></i></div>
+            <div class="card-details">
+                <h3>Heavy-Duty Shockproof Hardware Vault O5</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="others">
+            <div class="badge dynamic-purple">General Bundle</div>
+            <div class="image-box"><i class="fas fa-campground placeholder-icon-purple"></i></div>
+            <div class="card-details">
+                <h3>All-Weather Waterproof Camping Kit O6</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="others">
+            <div class="badge dynamic-purple">General Bundle</div>
+            <div class="image-box"><i class="fas fa-car placeholder-icon-purple"></i></div>
+            <div class="card-details">
+                <h3>High-Pressure Portable Car Air Inflator O7</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+        <div class="deal-card-component" data-category="others">
+            <div class="badge dynamic-purple">General Bundle</div>
+            <div class="image-box"><i class="fas fa-pen-fancy placeholder-icon-purple"></i></div>
+            <div class="card-details">
+                <h3>Premium Matte Finish Executive Pen Vault O8</h3>
+                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <div class="pricing-action-row">
+                    <span class="price-indicator">View Price</span>
+                    <a href="https://link.amazon" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> View Amazon</a>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Close products-grid-feed container array elements -->
+
+    <div class="mega-sale-banner">
+        <div class="mega-box">
+            <h3>Mega Sale Active</h3>
+            <p>Click items to check real-time dynamic pricing shifts on Amazon</p>
+        </div>
+    </div>
+
+    <!-- Active Core Navigation Operations Engine Script Logic -->
+    <script>
+        function switchCategory(categoryName) {
+            // Remove active focus layout tracking state across items tabs array
+            const pills = document.querySelectorAll('.category-pill');
+            pills.forEach(pill => pill.classList.remove('active'));
+            
+            // Re-assign programmatic selection highlight target parameters
+            event.currentTarget.classList.add('active');
+
+            // Select structural DOM document array target items nodes element
+            const cards = document.querySelectorAll('.deal-card-component');
+            cards.forEach(card => {
+                if(categoryName === 'all') {
+                    card.style.display = 'flex';
+                } else if(card.getAttribute('data-category') === categoryName) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function scrollToDeals() {
+            document.getElementById('deals-anchor').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
-</html>
+                                                                       </html>
+                                                                       
