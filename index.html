@@ -1,274 +1,824 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartBuyHub | Verified Affiliate Direct Portal</title>
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <style>
-        @import url('https://googleapis.com');
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        :root {
-            --bg-dark-base: #060713; --bg-card-surface: #0f1123;
-            --neon-orange: #ff6a00; --neon-cyan: #00f2fe;
-            --neon-pink: #fa26a0; --neon-purple: #9b51e0;
-            --text-white: #ffffff; --text-muted: #7e84a3;
-            --glow-shadow-cyan: 0px 0px 15px rgba(0, 242, 254, 0.6);
-            --glow-shadow-orange: 0px 0px 15px rgba(255, 106, 0, 0.6);
-        }
-        body { background-color: var(--bg-dark-base); color: var(--text-white); min-height: 100vh; overflow-x: hidden; padding-bottom: 60px; }
-        .main-header { background: rgba(15, 17, 35, 0.85); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .logo-text { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text-white); }
-        .logo-text .highlight { color: var(--neon-orange); text-shadow: var(--glow-shadow-orange); }
-        .header-controls { display: flex; align-items: center; gap: 20px; }
-        .cart-badge { position: relative; font-size: 1.2rem; }
-        .cart-badge .count { position: absolute; top: -8px; right: -10px; background: var(--neon-orange); font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; }
-        .menu-burger { font-size: 1.3rem; cursor: pointer; }
-                .hero-showcase {
-            background: linear-gradient(135deg, rgba(6,7,19,0.95) 30%, rgba(15,17,35,0.7) 100%);
-            padding: 50px 25px; text-align: center; border-bottom: 2px solid rgba(0, 242, 254, 0.1);
-        }
-        .hero-content h1 { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; background: linear-gradient(to right, #ff6a00, #ee0979, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-content p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
-        .hero-actions { display: flex; justify-content: center; gap: 15px; }
-        
-        .btn { padding: 12px 24px; border-radius: 25px; font-weight: 600; font-size: 0.9rem; cursor: pointer; border: none; transition: all 0.3s ease; }
-        .btn-neon-cyan { background: linear-gradient(45deg, #00c6ff, #00f2fe); color: #000; box-shadow: var(--glow-shadow-cyan); }
-        .btn-outline { background: transparent; color: var(--text-white); border: 1px solid rgba(255, 255, 255, 0.3); }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>SmartBuy Hub | Smart Shopping Deals</title>
+  <meta name="description" content="Discover useful electronics, kitchen essentials, fashion and everyday products at SmartBuy Hub.">
+  <style>
+    :root {
+      --dark: #101827;
+      --dark2: #17243a;
+      --orange: #ff9d28;
+      --light: #f5f7fb;
+      --text: #172033;
+      --muted: #6b7280;
+      --white: #ffffff;
+      --border: #e7eaf0;
+      --green: #14804a;
+    }
 
-        .nav-category-matrix { padding: 25px 0 15px 20px; overflow-x: auto; }
-        .category-tabs-container { display: flex; gap: 20px; padding-bottom: 10px; }
-        .category-pill { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 85px; text-decoration: none; }
-        .circle-icon-vector { width: 64px; height: 64px; border-radius: 50%; background: var(--bg-card-surface); border: 2px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: center; align-items: center; font-size: 1.4rem; color: var(--text-muted); margin-bottom: 8px; transition: all 0.3s ease; }
-        .category-pill span { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
-        
-        .category-pill.active .circle-icon-vector { border-color: var(--neon-cyan); color: var(--neon-cyan); box-shadow: var(--glow-shadow-cyan); background: linear-gradient(135deg, #181b3a, #0f1123); }
-        .category-pill.active span { color: var(--text-white); font-weight: 600; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .section-title-wrap { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px 10px 25px; }
-        .section-title-wrap h2 { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; letter-spacing: 1px; color: rgba(255,255,255,0.95); }
-        .products-grid-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 15px 25px; }
-        .deal-card-component { background: var(--bg-card-surface); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.04); padding: 16px; display: flex; flex-direction: column; position: relative; }
-        .deal-card-component .badge { position: absolute; top: 12px; left: 12px; background: rgba(0, 242, 254, 0.15); color: var(--neon-cyan); font-size: 0.65rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; border: 1px solid rgba(0, 242, 254, 0.2); z-index: 5; }
-        .deal-card-component .badge.save-badge { color: #ff3b30; background: rgba(255, 59, 48, 0.15); border-color: rgba(255, 59, 48, 0.2); }
-        .deal-card-component .badge.dynamic-orange { color: var(--neon-orange); background: rgba(255, 106, 0, 0.15); border-color: rgba(255, 106, 0, 0.2); }
-        .deal-card-component .badge.dynamic-pink { color: var(--neon-pink); background: rgba(250, 38, 160, 0.15); border-color: rgba(250, 38, 160, 0.2); }
-        .deal-card-component .badge.dynamic-purple { color: var(--neon-purple); background: rgba(155, 81, 224, 0.15); border-color: rgba(155, 81, 224, 0.2); }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-        .card-img-wrapper { width: 100%; height: 180px; background: rgba(6, 7, 19, 0.5); border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-bottom: 14px; }
-        .vector-product-icon { font-size: 3.5rem; }
-        .vector-product-icon.cyan-t { color: rgba(0, 242, 254, 0.35); text-shadow: var(--glow-shadow-cyan); }
-        .vector-product-icon.orange-t { color: rgba(255, 106, 0, 0.35); }
-        .vector-product-icon.pink-t { color: rgba(250, 38, 160, 0.35); }
-        .vector-product-icon.purple-t { color: rgba(155, 81, 224, 0.35); }
+    a { text-decoration: none; }
 
-        .card-details h3 { font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: #e2e8f0; margin-bottom: 8px; height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .rating-bar { color: #ffd700; font-size: 0.75rem; margin-bottom: 12px; display: flex; gap: 2px; }
-        .price-container-row { display: flex; flex-direction: column; gap: 2px; margin-bottom: 15px; }
-        .mrp-strike { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; }
-        .current-deal-price { font-family: 'Orbitron', sans-serif; color: var(--neon-orange); font-weight: 800; font-size: 1.1rem; }
-        .pricing-action-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px; }
-        .buy-action-btn { background: linear-gradient(135deg, #ff9900, #ffb300); color: #000000; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; text-transform: uppercase; }
-        .mega-sale-banner { padding: 30px 25px 15px 25px; width: 100%; }
-        .mega-box { background: linear-gradient(90deg, rgba(255, 106, 0, 0.1) 0%, rgba(250, 38, 160, 0.1) 100%); border: 1px solid rgba(255, 106, 0, 0.2); border-radius: 14px; padding: 20px; text-align: center; }
-        .mega-box h3 { font-family: 'Orbitron', sans-serif; color: var(--neon-orange); font-size: 1.1rem; margin-bottom: 6px; }
-        .mega-box p { color: var(--text-muted); font-size: 0.8rem; }
-        .nav-category-matrix::-webkit-scrollbar { height: 4px; }
-        .nav-category-matrix::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
-    </style>
+    .topbar {
+      background: #0b1220;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 20px 5%;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span { color: var(--orange); }
+
+    .tagline {
+      color: #c5ccda;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .header-label {
+      color: #ffe0b3;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hero {
+      background: linear-gradient(130deg, #101827, #233956);
+      color: white;
+      padding: 50px 5% 44px;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      color: #ffe0b3;
+      background: #ffffff15;
+      border: 1px solid #ffffff25;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.15;
+      max-width: 680px;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span { color: var(--orange); }
+
+    .hero p {
+      color: #d4dbea;
+      max-width: 560px;
+      font-size: 15px;
+      margin-bottom: 23px;
+    }
+
+    .hero-button {
+      display: inline-block;
+      background: var(--orange);
+      color: #211405;
+      font-weight: 800;
+      padding: 12px 20px;
+      border-radius: 9px;
+    }
+
+    .benefits {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 5%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .benefit {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .benefit span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 24px 5% 50px;
+    }
+
+    .section-heading {
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .section-heading p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin: 22px 0;
+    }
+
+    .search-box input {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid #dce1e9;
+      border-radius: 10px;
+      padding: 13px 15px;
+      font-size: 15px;
+      outline: none;
+      background: white;
+    }
+
+    .search-box input:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px #ff9d2820;
+    }
+
+    .category-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 28px;
+    }
+
+    .category-btn {
+      background: white;
+      border: 1px solid #dfe4ec;
+      padding: 10px 15px;
+      border-radius: 30px;
+      cursor: pointer;
+      color: #263247;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .category-btn.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px #17203312;
+    }
+
+    .product-visual {
+      height: 145px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(140deg, #f1f4f9, #e8edf5);
+      font-size: 52px;
+      position: relative;
+    }
+
+    .discount {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ffe8e7;
+      color: #bd2525;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 8px;
+      border-radius: 5px;
+    }
+
+    .product-info {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-category {
+      color: #68758a;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .8px;
+      margin-bottom: 6px;
+    }
+
+    .product-info h3 {
+      font-size: 14px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .price-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .price {
+      font-size: 21px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .mrp {
+      color: #858b98;
+      font-size: 12px;
+      text-decoration: line-through;
+    }
+
+    .pending {
+      color: #777f8d;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .deal-button {
+      display: block;
+      text-align: center;
+      background: var(--orange);
+      color: #211405;
+      padding: 10px 8px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-top: auto;
+    }
+
+    .deal-button:hover { background: #ffb44e; }
+
+    .empty-message {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 35px 10px;
+      color: var(--muted);
+    }
+
+    .disclosure {
+      background: #fff8eb;
+      border: 1px solid #f4dfbd;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 12px;
+      color: #67491f;
+      margin-top: 30px;
+    }
+
+    footer {
+      background: #0b1220;
+      color: #cbd3df;
+      padding: 30px 5%;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    footer strong {
+      display: block;
+      color: white;
+      font-size: 20px;
+      margin-bottom: 7px;
+    }
+
+    footer p { margin: 5px 0; }
+
+    @media (max-width: 950px) {
+      .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 650px) {
+      header { padding: 16px 5%; }
+      .logo { font-size: 24px; }
+      .header-label { font-size: 11px; }
+      .hero { padding: 38px 5%; }
+      .benefits { padding-top: 12px; gap: 8px; }
+      .benefit { padding: 12px 5px; font-size: 11px; }
+      .benefit span { font-size: 19px; }
+      main { padding-top: 25px; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+      .product-visual { height: 120px; font-size: 43px; }
+      .product-info { padding: 11px; }
+      .product-info h3 { font-size: 13px; }
+      .price { font-size: 19px; }
+      .section-heading h2 { font-size: 23px; }
+    }
+
+    @media (max-width: 360px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .product-visual { height: 160px; }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="main-header">
-        <div class="logo-zone"><span class="logo-text">Smart<span class="highlight">Buy</span>Hub</span></div>
-        <div class="header-controls">
-            <div class="cart-badge"><i class="fas fa-shopping-cart"></i><span class="count">1</span></div>
-            <div class="menu-burger"><i class="fas fa-bars"></i></div>
-        </div>
-    </div>
-        <div class="hero-showcase">
-        <div class="hero-content">
-            <h1>UPGRADE YOUR LIFE</h1>
-            <p>Trending Tech, Kitchen Utilities, Fashion & High-Tier Gear Matrix!</p>
-            <div class="hero-actions">
-                <button class="btn btn-neon-cyan" onclick="scrollToDeals()">Shop Now</button>
-                <button class="btn btn-outline" onclick="scrollToDeals()">Explore Deals</button>
-            </div>
-        </div>
-    </div>
-    <div class="nav-category-matrix">
-        <div class="category-tabs-container">
-            <div class="category-pill active" onclick="switchCategory('all')">
-                <div class="circle-icon-vector"><i class="fas fa-th-large"></i></div><span>All Feed</span>
-            </div>
-            <div class="category-pill" onclick="switchCategory('electronics')">
-                <div class="circle-icon-vector"><i class="fas fa-headphones"></i></div><span>Electronics</span>
-            </div>
-            <div class="category-pill" onclick="switchCategory('kitchen')">
-                <div class="circle-icon-vector"><i class="fas fa-blender"></i></div><span>Kitchen</span>
-            </div>
-            <div class="category-pill" onclick="switchCategory('fashion')">
-                <div class="circle-icon-vector"><i class="fas fa-tshirt"></i></div><span>Fashion</span>
-            </div>
-            <div class="category-pill" onclick="switchCategory('others')">
-                <div class="circle-icon-vector"><i class="fas fa-box-open"></i></div><span>Others</span>
-            </div>
-        </div>
-    </div>
-    <div class="section-title-wrap" id="deals-anchor"><h2>TRENDING TODAY</h2></div>
-    <div class="products-grid-feed">
-        <!-- ================= ELECTRONICS CATEGORY ================= -->
-        <div class="deal-card-component" data-category="electronics">
-            <div class="badge save-badge">76% OFF</div>
-            <div class="card-img-wrapper"><i class="fas fa-volume-up vector-product-icon cyan-t"></i></div>
-            <div class="card-details">
-                <h3>Shocknshop Digital Sports Stylish Multifunctional Electronic LED Wrist Watch - WCH78</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (1,787)</div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹1,999.00</span><span class="current-deal-price">₹473.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-        <div class="deal-card-component" data-category="electronics">
-            <div class="badge save-badge">63% OFF</div>
-            <div class="card-img-wrapper"><i class="fas fa-video vector-product-icon cyan-t"></i></div>
-            <div class="card-details">
-                <h3>Lifelong Electronics Built-in Live TV Smart Projector Android 1080P & 4K Support</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (869)</div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹19,999.00</span><span class="current-deal-price">₹7,490.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-        <div class="deal-card-component" data-category="electronics">
-            <div class="badge save-badge">86% OFF</div>
-            <div class="card-img-wrapper"><i class="fas fa-mobile-alt vector-product-icon cyan-t"></i></div>
-            <div class="card-details">
-                <h3>Portronics MODESK Universal Mobile Holder Stand with Metal Body Anti Skid Design</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (32,260)</div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹699.00</span><span class="current-deal-price">₹99.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-        <div class="deal-card-component" data-category="electronics">
-            <div class="badge save-badge">84% OFF</div>
-            <div class="card-img-wrapper"><i class="fas fa-stopwatch vector-product-icon cyan-t"></i></div>
-            <div class="card-details">
-                <h3>boAt Wave Call 3 Smartwatch 1.83” HD Display BT Calling with Animated Watch Faces</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (27,060)</div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹6,999.00</span><span class="current-deal-price">₹1,099.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-                <!-- ================= KITCHEN CATEGORY ================= -->
-        <div class="deal-card-component" data-category="kitchen">
-            <div class="badge dynamic-orange">Kitchen Pro</div>
-            <div class="card-img-wrapper"><i class="fas fa-blender vector-product-icon orange-t"></i></div>
-            <div class="card-details">
-                <h3>Premium High-Speed Kitchen Processing Array - Professional Grade Mixer</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹4,999.00</span><span class="current-deal-price">₹2,499.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-        <div class="deal-card-component" data-category="kitchen">
-            <div class="badge dynamic-orange">Kitchen Pro</div>
-            <div class="card-img-wrapper"><i class="fas fa-coffee vector-product-icon orange-t"></i></div>
-            <div class="card-details">
-                <h3>Automated Custom Brew Drip Coffee Infuser with Thermal Temperature Control</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹3,499.00</span><span class="current-deal-price">₹1,799.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-        <div class="deal-card-component" data-category="kitchen">
-            <div class="badge dynamic-orange">Kitchen Pro</div>
-            <div class="card-img-wrapper"><i class="fas fa-utensils vector-product-icon orange-t"></i></div>
-            <div class="card-details">
-                <h3>Premium Grade Thermal Stainless Steel Induction Cookware Cooking Pots Set</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹6,499.00</span><span class="current-deal-price">₹3,299.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
+  <div class="topbar">
+    Discover useful finds for everyday life
+  </div>
 
-        <!-- ================= FASHION CATEGORY ================= -->
-        <div class="deal-card-component" data-category="fashion">
-            <div class="badge dynamic-pink">Fashion Vibe</div>
-            <div class="card-img-wrapper"><i class="fas fa-tshirt vector-product-icon pink-t"></i></div>
-            <div class="card-details">
-                <h3>Premium Tailored Urban Luxury Apparel - Slim Fit Lightweight Jacket</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹2,999.00</span><span class="current-deal-price">₹1,299.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-        <div class="deal-card-component" data-category="fashion">
-            <div class="badge dynamic-pink">Fashion Vibe</div>
-            <div class="card-img-wrapper"><i class="fas fa-shoe-prints vector-product-icon pink-t"></i></div>
-            <div class="card-details">
-                <h3>Ergonomic Cyber Sport Cushion Running Shoes - All-Weather Performance</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹4,499.00</span><span class="current-deal-price">₹1,899.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-                <!-- ================= OTHERS / GENERAL BUNDLE ================= -->
-        <!-- Davidoff Espresso 57 Coffee - Real Mapped Node -->
-        <div class="deal-card-component" data-category="others">
-            <div class="badge save-badge">20% OFF</div>
-            <div class="card-img-wrapper"><i class="fas fa-mug-hot vector-product-icon purple-t"></i></div>
-            <div class="card-details">
-                <h3>Davidoff Espresso 57 Whole Beans Coffee - 10/12 Intensity - Arabica (500G)</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (408)</div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹2,499.00</span><span class="current-deal-price">₹1,999.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-        <div class="deal-card-component" data-category="others">
-            <div class="badge dynamic-purple">General Bundle</div>
-            <div class="card-img-wrapper"><i class="fas fa-dumbbell vector-product-icon purple-t"></i></div>
-            <div class="card-details">
-                <h3>Heavy Endurance Home Gym Core Set - Adjustable Training Dumbbells</h3>
-                <div class="rating-bar"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <div class="price-container-row"><span class="mrp-strike">M.R.P.: ₹5,999.00</span><span class="current-deal-price">₹2,999.00</span></div>
-                <div class="pricing-action-row"><a href="https://amazon.in" target="_blank" class="buy-action-btn"><i class="fab fa-amazon"></i> Go to Product</a></div>
-            </div>
-        </div>
-    </div> <!-- Close principal products-grid-feed data block structural nodes -->
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="logo">SmartBuy <span>Hub</span></div>
+        <div class="tagline">Smart picks. Better shopping.</div>
+      </div>
+      <div class="header-label">YOUR EVERYDAY SHOPPING GUIDE</div>
+    </div>
+  </header>
 
-    <div class="mega-sale-banner">
-        <div class="mega-box">
-            <h3>Mega Sale Active</h3>
-            <p>Click items to check real-time dynamic pricing shifts on Amazon</p>
-        </div>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">WELCOME TO SMARTBUY HUB</div>
+      <h1>Find your next <span>smart buy.</span></h1>
+      <p>
+        Explore electronics, kitchen essentials, fashion and everyday
+        products in one simple place.
+      </p>
+      <a href="#shop" class="hero-button">Explore Products →</a>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <div class="benefit"><span>🔎</span>Easy Product Search</div>
+    <div class="benefit"><span>🛍️</span>Shop on Amazon</div>
+    <div class="benefit"><span>📱</span>Mobile Friendly</div>
+  </section>
+
+  <main id="shop">
+    <div class="section-heading">
+      <h2>Explore Products</h2>
+      <p>Choose a category or search for something you need.</p>
     </div>
 
-    <!-- Active Navigation Core Operations Filter Script Logic Engine -->
-    <script>
-        function switchCategory(categoryName) {
-            // Remove active focus layout tracking state across items tabs array
-            const pills = document.querySelectorAll('.category-pill');
-            pills.forEach(pill => pill.classList.remove('active'));
-            
-            // Re-assign programmatic selection highlight target parameters securely
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-            }
+    <div class="search-box">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search products..."
+        aria-label="Search products"
+      >
+    </div>
 
-            // Select structural DOM document array target items nodes element
-            const cards = document.querySelectorAll('.deal-card-component');
-            cards.forEach(card => {
-                if (categoryName === 'all') {
-                    card.style.display = 'flex';
-                } else if (card.getAttribute('data-category') === categoryName) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
+    <nav class="category-list" aria-label="Product categories">
+      <button class="category-btn active" data-category="All">All Products</button>
+      <button class="category-btn" data-category="Electronics">🔌 Electronics</button>
+      <button class="category-btn" data-category="Kitchen">🍳 Kitchen</button>
+      <button class="category-btn" data-category="Fashion">👕 Fashion</button>
+      <button class="category-btn" data-category="Others">✨ Others</button>
+    </nav>
 
-        function scrollToDeals() {
-            document.getElementById('deals-anchor').scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+    <div id="productGrid" class="product-grid"></div>
+
+    <div class="disclosure">
+      <strong>Affiliate disclosure:</strong>
+      SmartBuy Hub may earn a commission when you buy through qualifying
+      affiliate links, at no extra cost to you. Product prices and availability
+      can change on Amazon. Please check the final price on Amazon before
+      purchasing. Prices displayed here are manually entered and may not be
+      current.
+    </div>
+  </main>
+
+  <footer>
+    <strong>SmartBuy <span style="color:#ff9d28">Hub</span></strong>
+    <p>Smart picks. Better shopping.</p>
+    <p>© <span id="year"></span> SmartBuy Hub. All rights reserved.</p>
+    <p>Amazon and its logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
+  </footer>
+
+  <script>
+    /*
+      Product details are manually entered.
+      Replace pending product names and prices only after verifying them.
+      Product images can be added later using verified image URLs.
+    */
+
+    const products = [
+      // ELECTRONICS
+      {
+        category: "Electronics",
+        icon: "🎥",
+        name: "Microware Audio Video Capture Card HDMI to USB 2.0",
+        price: 305, mrp: 999, discount: "69%",
+        link: "https://link.amazon/B09BCx0Wd"
+      },
+      {
+        category: "Electronics",
+        icon: "🖨️",
+        name: "SEZNIK Josh Bluetooth Thermal Label Printer",
+        price: 2789.98, mrp: 4999, discount: "44%",
+        link: "https://link.amazon/B04w5b5dw"
+      },
+      {
+        category: "Electronics",
+        icon: "📽️",
+        name: "Lifelong Built-in Live TV Smart Projector",
+        price: 7490, mrp: 19999, discount: "63%",
+        link: "https://link.amazon/B0ePBwMzT"
+      },
+      {
+        category: "Electronics",
+        icon: "🎤",
+        name: "PTron Mini Karaoke Bluetooth Speaker",
+        price: 849, mrp: 3199, discount: "Approx. 73%",
+        link: "https://link.amazon/B02cf4HVB"
+      },
+      {
+        category: "Electronics",
+        icon: "🔌",
+        name: "Honeywell High Speed HDMI 2.1 Cable - 3m",
+        price: 1279, mrp: 1899, discount: "33%",
+        link: "https://link.amazon/B0fmMPy69"
+      },
+      {
+        category: "Electronics",
+        icon: "⌚",
+        name: "Casio Grey Dial Unisex Watch",
+        price: 1895, mrp: null, discount: "",
+        link: "https://link.amazon/B08FRGD2K"
+      },
+      {
+        category: "Electronics",
+        icon: "⌚",
+        name: "boAt Wave Call 3 Smartwatch - 1.83-inch HD Display",
+        price: 1099, mrp: 6999, discount: "84%",
+        link: "https://link.amazon/B0c3l5DaB"
+      },
+      {
+        category: "Electronics",
+        icon: "📱",
+        name: "Portronics MODESK Universal Mobile Holder Stand",
+        price: 99, mrp: 699, discount: "86%",
+        link: "https://link.amazon/B0dvNIqpM"
+      },
+      {
+        category: "Electronics",
+        icon: "🎧",
+        name: "CLATE XLR 3-Pin Male to 6.35mm Female Audio Adapter",
+        price: 298, mrp: 899, discount: "67%",
+        link: "https://link.amazon/B08LxH5Zw"
+      },
+      {
+        category: "Electronics",
+        icon: "⌚",
+        name: "Shocknshop Digital Sports LED Watch",
+        price: 473, mrp: 1999, discount: "76%",
+        link: "https://link.amazon/B0cA7arI6"
+      },
+
+      // KITCHEN
+      {
+        category: "Kitchen",
+        icon: "🧂",
+        name: "NH10 DESIGNS Tabletop Spice Rack",
+        price: 216, mrp: 699, discount: "69%",
+        link: "https://link.amazon/B02Y8wNUr"
+      },
+      {
+        category: "Kitchen",
+        icon: "🥗",
+        name: "Pigeon Mini Handy Chopper with 3 Blades",
+        price: 166, mrp: 545, discount: "70%",
+        link: "https://link.amazon/B00uHn59h"
+      },
+      {
+        category: "Kitchen",
+        icon: "🧽",
+        name: "Varde Cotton Kitchen Dish Cloth - Pack of 10",
+        price: 168, mrp: 700, discount: "Approx. 76%",
+        link: "https://link.amazon/B0gmzfEh0"
+      },
+      {
+        category: "Kitchen",
+        icon: "☕",
+        name: "Milton Rapid Electric Kettle - 1.8L, 1500W",
+        price: 604, mrp: 1499, discount: "60%",
+        link: "https://link.amazon/B02YHV5fx"
+      },
+      {
+        category: "Kitchen",
+        icon: "🍟",
+        name: "The Better Home Fumato Digital Air Fryer - 4.5L",
+        price: 3699, mrp: 8499, discount: "56%",
+        link: "https://link.amazon/B02ksA6cN"
+      },
+      {
+        category: "Kitchen",
+        icon: "🧄",
+        name: "Samta Stainless Steel Garlic and Ginger Press",
+        price: 149, mrp: 1299, discount: "89%",
+        link: "https://link.amazon/B0dd71Mxq"
+      },
+      {
+        category: "Kitchen",
+        icon: "🥣",
+        name: "Philips HR3705/10 Lightweight Hand Mixer - 300W",
+        price: 2135, mrp: 2595, discount: "18%",
+        link: "https://link.amazon/B02McLtWh"
+      },
+      {
+        category: "Kitchen",
+        icon: "🚰",
+        name: "Flexible Kitchen Sink Tap Extender",
+        price: 249, mrp: 599, discount: "58%",
+        link: "https://link.amazon/B0c1NYhKY"
+      },
+
+      // FASHION
+      {
+        category: "Fashion",
+        icon: "🩳",
+        name: "Lymio Men Light Grey Cotton Shorts - Size Large",
+        price: 399, mrp: 2999, discount: "Approx. 87%",
+        link: "https://link.amazon/B00aWZK0g"
+      },
+      {
+        category: "Fashion",
+        icon: "👕",
+        name: "Fashion Product 2 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B00DquyQL",
+        pending: true
+      },
+      {
+        category: "Fashion",
+        icon: "👗",
+        name: "Fashion Product 3 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B04eDuggN",
+        pending: true
+      },
+      {
+        category: "Fashion",
+        icon: "👖",
+        name: "Fashion Product 4 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B0iNi722m",
+        pending: true
+      },
+      {
+        category: "Fashion",
+        icon: "👟",
+        name: "Fashion Product 5 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B0ce7M1R5",
+        pending: true
+      },
+      {
+        category: "Fashion",
+        icon: "👜",
+        name: "Fashion Product 6 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B0a2lj6k6",
+        pending: true
+      },
+      {
+        category: "Fashion",
+        icon: "🧥",
+        name: "Fashion Product 7 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B05TCbzta",
+        pending: true
+      },
+      {
+        category: "Fashion",
+        icon: "👔",
+        name: "Fashion Product 8 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B0dafN6q8",
+        pending: true
+      },
+
+      // OTHERS
+      {
+        category: "Others",
+        icon: "✨",
+        name: "Other Product 1 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B0awQr5Ac",
+        pending: true
+      },
+      {
+        category: "Others",
+        icon: "🏠",
+        name: "Other Product 2 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B05Xztmtt",
+        pending: true
+      },
+      {
+        category: "Others",
+        icon: "🎁",
+        name: "Other Product 3 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B0apUXVM1",
+        pending: true
+      },
+      {
+        category: "Others",
+        icon: "🧰",
+        name: "Other Product 4 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B038eIgoj",
+        pending: true
+      },
+      {
+        category: "Others",
+        icon: "💡",
+        name: "Other Product 5 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B00Jar5w3",
+        pending: true
+      },
+      {
+        category: "Others",
+        icon: "🎒",
+        name: "Other Product 6 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B08JTHQJA",
+        pending: true
+      },
+      {
+        category: "Others",
+        icon: "🌟",
+        name: "Other Product 7 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B0inQraou",
+        pending: true
+      },
+      {
+        category: "Others",
+        icon: "🛒",
+        name: "Other Product 8 - Details Pending",
+        price: null, mrp: null, discount: "",
+        link: "https://link.amazon/B0iBgyFTK",
+        pending: true
+      }
+    ];
+
+    let selectedCategory = "All";
+
+    const grid = document.getElementById("productGrid");
+    const searchInput = document.getElementById("searchInput");
+    const categoryButtons = document.querySelectorAll(".category-btn");
+
+    function formatPrice(value) {
+      if (value === null || value === undefined) return "";
+      return "₹" + Number(value).toLocaleString("en-IN", {
+        maximumFractionDigits: 2
+      });
+    }
+
+    function renderProducts() {
+      const search = searchInput.value.trim().toLowerCase();
+
+      const filtered = products.filter(product => {
+        const matchesCategory =
+          selectedCategory === "All" ||
+          product.category === selectedCategory;
+
+        const matchesSearch =
+          product.name.toLowerCase().includes(search) ||
+          product.category.toLowerCase().includes(search);
+
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML =
+          '<div class="empty-message">No products found. Try another search.</div>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(product => {
+        const discountBadge = product.discount && !product.pending
+          ? `<span class="discount">${product.discount} OFF</span>`
+          : "";
+
+        const priceMarkup = product.price !== null && !product.pending
+          ? `
+            <div class="price-row">
+              <span class="price">${formatPrice(product.price)}</span>
+              ${product.mrp !== null
+                ? `<span class="mrp">${formatPrice(product.mrp)}</span>`
+                : ""}
+            </div>
+          `
+          : `<div class="pending">Price details coming soon</div>`;
+
+        return `
+          <article class="product-card">
+            <div class="product-visual">
+              ${discountBadge}
+              <span aria-hidden="true">${product.icon}</span>
+            </div>
+
+            <div class="product-info">
+              <div class="product-category">${product.category}</div>
+              <h3>${product.name}</h3>
+              ${priceMarkup}
+              <a
+                class="deal-button"
+                href="${product.link}"
+                target="_blank"
+                rel="nofollow sponsored noopener"
+                aria-label="View ${product.name} on Amazon"
+              >View Deal on Amazon ↗</a>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    categoryButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        selectedCategory = button.dataset.category;
+
+        categoryButtons.forEach(item => {
+          item.classList.toggle("active", item === button);
+        });
+
+        renderProducts();
+      });
+    });
+
+    searchInput.addEventListener("input", renderProducts);
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    renderProducts();
+  </script>
 </body>
 </html>
